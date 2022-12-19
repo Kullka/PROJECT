@@ -11,9 +11,7 @@ void fsm_auto() {
 	if (currentMode == AUTO) {
 		switch (state) {
 		case STATE0:
-			sprintf(msg, "!LED1: RED - %d#\r\n", (currentTick + timeGreen) / 100);
-			HAL_UART_Transmit(&huart2, (uint8_t *)msg, sizeof(msg), 50);
-			sprintf(msg, "!LED2: GREEN - %d#\r\n", currentTick / 100);
+			sprintf(msg, "!7SEG:%d#\r\n", (currentTick + timeGreen) / 100);
 			HAL_UART_Transmit(&huart2, (uint8_t *)msg, sizeof(msg), 50);
 			HAL_GPIO_WritePin(GPIOA, Led_11_Pin, 1);
 			HAL_GPIO_WritePin(GPIOB, Led_12_Pin, 0);
@@ -21,9 +19,7 @@ void fsm_auto() {
 			HAL_GPIO_WritePin(GPIOB, Led_22_Pin, 1);
 			break;
 		case STATE1:
-			sprintf(msg, "!LED1: RED - %d#\r\n", currentTick / 100);
-			HAL_UART_Transmit(&huart2, (uint8_t *)msg, sizeof(msg), 50);
-			sprintf(msg, "!LED2: YELL - %d#\r\n", currentTick / 100);
+			sprintf(msg, "!7SEG:%d#\r\n", currentTick / 100);
 			HAL_UART_Transmit(&huart2, (uint8_t *)msg, sizeof(msg), 50);
 			HAL_GPIO_WritePin(GPIOA, Led_11_Pin, 1);
 			HAL_GPIO_WritePin(GPIOB, Led_12_Pin, 0);
@@ -31,9 +27,7 @@ void fsm_auto() {
 			HAL_GPIO_WritePin(GPIOB, Led_22_Pin, 1);
 			break;
 		case STATE2:
-			sprintf(msg, "!LED1: GREEN - %d#\r\n", currentTick / 100);
-			HAL_UART_Transmit(&huart2, (uint8_t *)msg, sizeof(msg), 50);
-			sprintf(msg, "!LED2: RED - %d#\r\n", (currentTick + timeYellow) / 100);
+			sprintf(msg, "!7SEG:%d#\r\n", currentTick / 100);
 			HAL_UART_Transmit(&huart2, (uint8_t *)msg, sizeof(msg), 50);
 			HAL_GPIO_WritePin(GPIOA, Led_11_Pin, 0);
 			HAL_GPIO_WritePin(GPIOB, Led_12_Pin, 1);
@@ -41,9 +35,7 @@ void fsm_auto() {
 			HAL_GPIO_WritePin(GPIOB, Led_22_Pin, 0);
 			break;
 		case STATE3:
-			sprintf(msg, "!LED1: YELL - %d#\r\n", currentTick / 100);
-			HAL_UART_Transmit(&huart2, (uint8_t *)msg, sizeof(msg), 50);
-			sprintf(msg, "!LED2: RED - %d#\r\n", currentTick / 100);
+			sprintf(msg, "!7SEG:%d#\r\n", currentTick / 100);
 			HAL_UART_Transmit(&huart2, (uint8_t *)msg, sizeof(msg), 50);
 			HAL_GPIO_WritePin(GPIOA, Led_11_Pin, 1);
 			HAL_GPIO_WritePin(GPIOB, Led_12_Pin, 1);
@@ -55,11 +47,10 @@ void fsm_auto() {
 }
 
 void fsm_mode() {
-//	if (timer0Flag == 1) {
 	if (currentMode == MODIFIED) {
 		switch (state) {
 		case MOD_RED:
-			sprintf(msg, "!RED: %d#\r\n", tempDuration/100);
+			sprintf(msg, "!7SEG:%d#\r\n", tempDuration/100);
 			HAL_UART_Transmit(&huart2, (uint8_t *)msg, sizeof(msg), 50);
 			HAL_GPIO_WritePin(GPIOA, Led_11_Pin, 1);
 			HAL_GPIO_WritePin(GPIOB, Led_12_Pin, 0);
@@ -67,7 +58,7 @@ void fsm_mode() {
 			HAL_GPIO_WritePin(GPIOB, Led_22_Pin, 0);
 			break;
 		case MOD_GREEN:
-			sprintf(msg, "!GREEN: %d#\r\n", tempDuration/100);
+			sprintf(msg, "!7SEG:%d#\r\n", tempDuration/100);
 			HAL_UART_Transmit(&huart2, (uint8_t *)msg, sizeof(msg), 50);
 			HAL_GPIO_WritePin(GPIOA, Led_11_Pin, 0);
 			HAL_GPIO_WritePin(GPIOB, Led_12_Pin, 1);
@@ -75,7 +66,7 @@ void fsm_mode() {
 			HAL_GPIO_WritePin(GPIOB, Led_22_Pin, 1);
 			break;
 		case MOD_YELLOW:
-			sprintf(msg, "!YELL: %d#\r\n", tempDuration/100);
+			sprintf(msg, "!7SEG:%d#\r\n", tempDuration/100);
 			HAL_UART_Transmit(&huart2, (uint8_t *)msg, sizeof(msg), 50);
 			HAL_GPIO_WritePin(GPIOA, Led_11_Pin, 1);
 			HAL_GPIO_WritePin(GPIOB, Led_12_Pin, 1);
@@ -84,7 +75,6 @@ void fsm_mode() {
 			break;
 		}
 	}
-//	}
 }
 
 void fsm() {
@@ -113,8 +103,7 @@ void init_task() {
 }
 
 void update_state() {
-//	if (timer1Flag == 1) {
-		currentTick=currentTick-10;
+		currentTick = currentTick - 10;
 		if (currentMode == AUTO) {
 			switch (state) {
 			case STATE0:
@@ -150,5 +139,4 @@ void update_state() {
 				state = STATE0;
 			}
 		}
-//	}
 }
