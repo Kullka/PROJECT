@@ -16,8 +16,8 @@ int keyReg3[NO_BUTTONS];
 
 void key0Process() {
 	currentTick = DEAD_MODIFIED;
-	sprintf(msg, "!BUTTON %d#\r\n", currentTick);
-	HAL_UART_Transmit(&huart2, (uint8_t *)msg, sizeof(msg), 50);
+	//sprintf(msg, "!BUTTON %d#\r\n", currentTick);
+	//HAL_UART_Transmit(&huart2, (uint8_t *)msg, sizeof(msg), 50);
 	if (currentMode == AUTO) {
 		currentMode = MODIFIED;
 		state = MOD_RED;
@@ -94,8 +94,8 @@ void getKeyInput(){
 		if ( (keyReg0[i] == keyReg1[i]) && (keyReg1[i] == keyReg2[i]) ){
 			if (keyReg3[i] != keyReg2[i]) {
 				keyReg3[i] = keyReg2[i];
-				sprintf(msg, "!CHECK %d#\r\n", currentTick);
-				HAL_UART_Transmit(&huart2, (uint8_t *)msg, sizeof(msg), 50);
+				//sprintf(msg, "!CHECK %d#\r\n", currentTick);
+				//HAL_UART_Transmit(&huart2, (uint8_t *)msg, sizeof(msg), 50);
 				if (keyReg2[i] == PRESSED_STATE) {
 					switch (i) {
 					case 0:

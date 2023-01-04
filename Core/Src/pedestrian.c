@@ -19,7 +19,7 @@ void pedestrian_fsm(){
 		case STATE0:
 			HAL_GPIO_WritePin(GPIOB, PED0_Pin, 1);
 			HAL_GPIO_WritePin(GPIOA, PED1_Pin, 0);
-			//sprintf(msg, "!PED0 %d!\r\n", currentTick);
+			//sprintf(msg, "!PED0 %d!\r\n", currentTick); 
 			//HAL_UART_Transmit(&huart2, (uint8_t *)msg, sizeof(msg), 50);
 			break;
 		case STATE1:

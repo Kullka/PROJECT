@@ -12,7 +12,7 @@ void fsm_auto() {
 		switch (state) {
 		case STATE0:
 			sprintf(msg, "!7SEG:%d#\r\n", (currentTick + timeGreen) / 100);
-			HAL_UART_Transmit(&huart2, (uint8_t *)msg, sizeof(msg), 50);
+			HAL_UART_Transmit(&huart2, (uint8_t *)msg, sizeof(msg), 50); 
 			HAL_GPIO_WritePin(GPIOA, Led_11_Pin, 1);
 			HAL_GPIO_WritePin(GPIOB, Led_12_Pin, 0);
 			HAL_GPIO_WritePin(GPIOB, Led_21_Pin, 0);
