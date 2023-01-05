@@ -14,7 +14,7 @@
 
 #define NORMAL_STATE GPIO_PIN_SET
 #define PRESSED_STATE GPIO_PIN_RESET
-#define NO_BUTTONS 			5
+#define NO_BUTTONS 			4
 
 void getKeyInput();
 void key0Process();

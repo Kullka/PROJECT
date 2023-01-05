@@ -19,33 +19,34 @@ void pedestrian_fsm(){
 		case STATE0:
 			HAL_GPIO_WritePin(GPIOB, PED0_Pin, 1);
 			HAL_GPIO_WritePin(GPIOA, PED1_Pin, 0);
-			sprintf(msg, "!PED0 %d!\r\n", currentTick);
+			sprintf(msg, "!PED0 %d#\r\n", currentTick);
 			HAL_UART_Transmit(&huart2, (uint8_t *)msg, sizeof(msg), 50);
 			break;
 		case STATE1:
-			sprintf(msg, "!PED1 %d!\r\n", currentTick);
+			sprintf(msg, "!PED1 %d#\r\n", currentTick);
 			HAL_UART_Transmit(&huart2, (uint8_t *)msg, sizeof(msg), 50);
 			break;
 		case STATE2:
 			HAL_GPIO_WritePin(GPIOB, PED0_Pin, 0);
 			HAL_GPIO_WritePin(GPIOA, PED1_Pin, 1);
-			sprintf(msg, "!PED2 %d!\r\n", currentTick);
+			sprintf(msg, "!PED2 %d#\r\n", currentTick);
 			HAL_UART_Transmit(&huart2, (uint8_t *)msg, sizeof(msg), 50);
 			break;
 		case STATE3:
 			HAL_GPIO_WritePin(GPIOB, PED0_Pin, 0);
 			HAL_GPIO_WritePin(GPIOA, PED1_Pin, 1);
-			sprintf(msg, "!PED3 %d!\r\n", currentTick);
+			sprintf(msg, "!PED3 %d#\r\n", currentTick);
 			HAL_UART_Transmit(&huart2, (uint8_t *)msg, sizeof(msg), 50);
-			PWM += 5;
+			PWM += 1;
 			if (PWM >= 100)
 				PWM = 100;
 			__HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, PWM);
-			if (currentTick<=5) {
-				HAL_GPIO_WritePin(GPIOB, PED0_Pin, 1);
-				HAL_GPIO_WritePin(GPIOA, PED1_Pin, 1);
+			if (currentTick<=60) {
+				HAL_GPIO_WritePin(GPIOB, PED0_Pin, 0);
+				HAL_GPIO_WritePin(GPIOA, PED1_Pin, 0);
 				pedestrianFlag = 0;
 				PWM = 0;
+				__HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, PWM);
 			}
 			break;
 		}
